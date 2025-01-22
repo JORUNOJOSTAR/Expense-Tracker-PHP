@@ -4,6 +4,7 @@ namespace App\Commands;
 
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+use Illuminate\Support\Facades\Storage;
 
 class Add extends Command
 {
@@ -12,6 +13,9 @@ class Add extends Command
      *
      * @var string
      */
+
+    protected $data_file = "";
+
     protected $signature = 'add {--description= : desription of expense} {--amount= : cost of expense} ';
 
     /**
@@ -30,6 +34,10 @@ class Add extends Command
     {
         $description = $this->option('description');
         $amount = $this->option('amount');
+
+        if(Storage::disk('')){
+
+        }
     }
 
 }

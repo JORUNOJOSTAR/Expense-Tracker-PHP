@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Services\FileService;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
@@ -20,6 +21,13 @@ class Delete extends Command
      * @var string
      */
     protected $description = 'Delete an expense';
+    protected $fileService;
+
+    public function __construct(FileService $fileService){
+        parent::__construct();
+        $this->fileService = $fileService;
+    }
+
 
     /**
      * Execute the console command.
@@ -29,7 +37,7 @@ class Delete extends Command
     public function handle()
     {
         $id = $this->option("id");
-
+        $this->fileService->doSomething();
     }
 
 }
