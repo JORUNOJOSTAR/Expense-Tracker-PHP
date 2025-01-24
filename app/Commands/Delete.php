@@ -37,7 +37,7 @@ class Delete extends Command
     public function handle()
     {
         $id = $this->option("id");
-        $this->fileService->doSomething();
+
     }
 
 }

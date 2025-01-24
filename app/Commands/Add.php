@@ -2,9 +2,8 @@
 
 namespace App\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-use Illuminate\Support\Facades\Storage;
+use App\Services\FileService;
 
 class Add extends Command
 {
@@ -13,9 +12,6 @@ class Add extends Command
      *
      * @var string
      */
-
-    protected $data_file = "";
-
     protected $signature = 'add {--description= : desription of expense} {--amount= : cost of expense} ';
 
     /**
@@ -24,7 +20,12 @@ class Add extends Command
      * @var string
      */
     protected $description = 'Add an expense with a description and amount';
+    protected $fileService;
 
+    public function __construct(FileService $fileService){
+        parent::__construct();
+        $this->fileService = $fileService;
+    }
     /**
      * Execute the console command.
      *
@@ -34,10 +35,18 @@ class Add extends Command
     {
         $description = $this->option('description');
         $amount = $this->option('amount');
-
-        if(Storage::disk('')){
-
+        if(!$description or !$amount){
+            $description?:$this->error("Description for expense is missing");
+            $amount?:$this->error("Amount for expense is missing");
+            return 1;
         }
+        $newID = $this->fileService->addData($description,$amount);
+        if($newID){
+            $this->info("Expense added successfully (ID: {$newID})");
+        }else{
+            $this->error("Fail to add new expense");
+        };
     }
+
 
 }

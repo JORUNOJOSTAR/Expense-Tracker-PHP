@@ -12,14 +12,17 @@ class Update extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'update
+                                {--id= : ID of target expense}
+                                {--description : desription of expense}
+                                {--amount : cost of expense}';
 
     /**
      * The description of the command.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Update description or cost of an expense';
 
     /**
      * Execute the console command.
@@ -31,14 +34,4 @@ class Update extends Command
         //
     }
 
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule): void
-    {
-        // $schedule->command(static::class)->everyMinute();
-    }
 }
