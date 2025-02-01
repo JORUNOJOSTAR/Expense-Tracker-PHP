@@ -37,7 +37,16 @@ class Delete extends Command
     public function handle()
     {
         $id = $this->option("id");
+        if(!$id){
+            $this->error("ID is missing for expense to be updated\n");
+            return 1;
+        }
 
+        if($this->fileService->deleteData($id)){
+            $this->info("Expense deleted successfully (ID: {$id})");
+        }else{
+            $this->error("Expense not found (ID: {$id})");
+        };
     }
 
 }

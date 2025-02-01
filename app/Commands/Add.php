@@ -35,11 +35,11 @@ class Add extends Command
     {
         $description = $this->option('description');
         $amount = $this->option('amount');
-        if(!$description or !$amount){
-            $description?:$this->error("Description for expense is missing");
-            $amount?:$this->error("Amount for expense is missing");
-            return 1;
-        }
+
+        //checking input
+        $this->inputChecker($description,$amount);
+
+        //add data and prompt result;
         $newID = $this->fileService->addData($description,$amount);
         if($newID){
             $this->info("Expense added successfully (ID: {$newID})");
@@ -48,5 +48,11 @@ class Add extends Command
         };
     }
 
-
+    private function inputChecker($description,$amount){
+        if(!$description or !$amount){
+            $description?:$this->error("Description for expense is missing");
+            $amount?:$this->error("Amount for expense is missing");
+            exit(1);
+        }
+    }
 }
